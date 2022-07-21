@@ -9,7 +9,7 @@ import UIKit
 
 class FeedViewController: UIViewController {
 
-    private lazy var buttonPost = ButtonFeedVC()
+    private lazy var buttonPost = ButtonFeed()
     var post = Post(title: "Post")
     
     override func viewDidLoad() {
