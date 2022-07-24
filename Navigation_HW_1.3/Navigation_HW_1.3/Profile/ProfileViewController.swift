@@ -17,11 +17,6 @@ class ProfileViewController: UIViewController {
         setupViews()
         setConstraints()
     }
-
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        //profileHeaderView.avatarImageView.layer.cornerRadius = profileHeaderView.avatarImageView.frame.width / 2
-    }
         
     private func setupViews() {
         

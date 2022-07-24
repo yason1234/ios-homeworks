@@ -26,6 +26,12 @@ class ProfileHeaderView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        avatarImageView.layer.cornerRadius = avatarImageView.frame.width / 2
+    }
+    
     func allFunc() {
         
         setupViews()
@@ -50,7 +56,6 @@ class ProfileHeaderView: UIView {
          avatarImageView.image = UIImage(named: "Michel_Muller")
          avatarImageView.clipsToBounds = true
          avatarImageView.layer.borderWidth = 3
-         avatarImageView.layer.cornerRadius = 45
          avatarImageView.layer.borderColor = UIColor.white.cgColor
          avatarImageView.backgroundColor = .lightGray
          avatarImageView.translatesAutoresizingMaskIntoConstraints = false
