@@ -23,5 +23,7 @@ private let post2 = NewPost(author: "michaeljordan", description: "Ready to figh
 
 private let post3 = NewPost(author: "bmwRussia", description: "Freude am Fahren («С удовольствием за рулем»)", image: "bmw", likes: 53134, views: 914512)
 
+private let post4 = NewPost(author: "Harvard_Business_Review", description: "New magazine", image: "harward", likes: 5214, views: 91241)
 
-var postArray: [NewPost] = [post1, post2, post3]
+
+var postArray: [NewPost] = [post1, post2, post3, post4]
