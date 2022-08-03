@@ -17,10 +17,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window = UIWindow(windowScene: windowScene)
         let feedVC = UINavigationController(rootViewController: FeedViewController())
-        let profileVC = UINavigationController(rootViewController: ProfileViewController())
+       // let profileVC = UINavigationController(rootViewController: ProfileViewController())
+        let loginVC = UINavigationController(rootViewController: LogInViewController())
         
         let tabBarController = UITabBarController()
-        tabBarController.viewControllers = [feedVC, profileVC]
+        tabBarController.viewControllers = [feedVC, loginVC]
         
         tabBarController.viewControllers?.enumerated().forEach({
             $1.tabBarItem.title = $0 == 0 ? "feed" : "profile"

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ProfileHeaderView: UIView {
+class ProfileHeaderView: UITableViewHeaderFooterView {
     
     private lazy var avatarImageView = UIImageView()
     private lazy var fullNameLabel = UILabel()
@@ -16,8 +16,10 @@ class ProfileHeaderView: UIView {
     private lazy var statusTextField = UITextField()
     private var statusText: String?
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    weak var delegate: ProfileViewController?
+    
+    override init(reuseIdentifier: String?) {
+        super.init(reuseIdentifier: reuseIdentifier)
         
         allFunc()
     }
@@ -99,6 +101,9 @@ class ProfileHeaderView: UIView {
          statusTextField.borderStyle = .roundedRect
     }
     
+    func setDelegate() {
+        statusTextField.delegate = delegate
+    }
 }
 
 extension ProfileHeaderView {
@@ -109,27 +114,24 @@ extension ProfileHeaderView {
             self.avatarImageView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 16),
             self.avatarImageView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16),
             self.avatarImageView.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor, multiplier: 0.24),
-            self.avatarImageView.heightAnchor.constraint(equalTo: self.avatarImageView.widthAnchor)])
+            self.avatarImageView.heightAnchor.constraint(equalTo: self.avatarImageView.widthAnchor),
          
-         NSLayoutConstraint.activate([
              self.fullNameLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 27),
-             self.fullNameLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor)])
+             self.fullNameLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
          
-         NSLayoutConstraint.activate([
             self.statusLabel.topAnchor.constraint(equalTo: avatarImageView.centerYAnchor, constant: 10),
-            self.statusLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: 30)])
+            self.statusLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: 30),
 
-         NSLayoutConstraint.activate([
             self.setStatusButton.topAnchor.constraint(equalTo: self.statusTextField.bottomAnchor, constant: 10),
             self.setStatusButton.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            self.setStatusButton.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor, constant: -32),
-            self.setStatusButton.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.15)])
+            self.setStatusButton.widthAnchor.constraint(equalTo: self.widthAnchor, constant: -32),
+            self.setStatusButton.heightAnchor.constraint(equalToConstant: 40),
+            self.setStatusButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -8),
           
-         NSLayoutConstraint.activate([
             self.statusTextField.topAnchor.constraint(equalTo: self.avatarImageView.bottomAnchor, constant: 10),
-            self.statusTextField.trailingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.trailingAnchor, constant: -32),
+            self.statusTextField.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -32),
             self.statusTextField.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.5),
-            self.statusTextField.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.1)])
+            self.statusTextField.heightAnchor.constraint(equalToConstant: 30)])
          
     }
 }
@@ -158,5 +160,3 @@ extension ProfileHeaderView {
         statusText = statusTextField.text
     }
 }
-
-
