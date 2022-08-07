@@ -11,7 +11,7 @@ class ProfileViewController: UIViewController {
     
     private lazy var myTableView = UITableView(frame: .zero, style: .grouped)
     private lazy var model: [NewPost] = postArray
-    private lazy var image = ["logo", "jordan", "wwdc", "bmw", "harward", "logo", "logo", "jordan", "wwdc", "bmw", "harward", "logo"]
+    private lazy var image = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "wwdc"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,11 +59,11 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         if indexPath.section == 1 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "customCell", for: indexPath) as! PostTableViewCell
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "customCell", for: indexPath) as? PostTableViewCell else {return UITableViewCell()}
             cell.configureViews(authorNew: model[indexPath.row].author, avatar: model[indexPath.row].image, description: model[indexPath.row].description, likes: model[indexPath.row].likes, views: model[indexPath.row].views)
             return cell
         } else if indexPath.section == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "collection", for: indexPath) as! PhotosTableViewCell
+           guard let cell = tableView.dequeueReusableCell(withIdentifier: "collection", for: indexPath) as?  PhotosTableViewCell else {return UITableViewCell()}
             cell.arrayOfImage = image
             return cell
         }
@@ -81,17 +81,10 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
         return nil
     }
     
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        if indexPath.section == 0 {
-//            return 200
-//        } else {
-//            return sizeForSection2[indexPath.row]
-//        }
-//    }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
-            let newVC = CollectionViewController()
+            let newVC = PhotosViewController()
+            newVC.photoArray = image
             navigationController?.pushViewController(newVC, animated: true)
         }
     }
