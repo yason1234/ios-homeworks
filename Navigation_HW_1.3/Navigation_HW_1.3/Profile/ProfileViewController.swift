@@ -11,6 +11,7 @@ class ProfileViewController: UIViewController {
     
     private lazy var myTableView = UITableView(frame: .zero, style: .grouped)
     private lazy var model: [NewPost] = postArray
+
     private lazy var image = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "wwdc"]
 
     override func viewDidLoad() {
@@ -37,6 +38,7 @@ class ProfileViewController: UIViewController {
         myTableView.rowHeight = UITableView.automaticDimension
         myTableView.register(ProfileHeaderView.self, forHeaderFooterViewReuseIdentifier: "Header")
         myTableView.register(PhotosTableViewCell.self, forCellReuseIdentifier: "collection")
+
     }
 }
 
@@ -54,6 +56,8 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
         default: break
         }
         return 0
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        model.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -68,6 +72,9 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             return cell
         }
         return UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: "customCell", for: indexPath) as! PostTableViewCell
+        cell.configureViews(authorNew: model[indexPath.row].author, avatar: model[indexPath.row].image, description: model[indexPath.row].description, likes: model[indexPath.row].likes, views: model[indexPath.row].views)
+        return cell
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -87,6 +94,12 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             newVC.photoArray = image
             navigationController?.pushViewController(newVC, animated: true)
         }
+    }
+
+        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "Header") as! ProfileHeaderView
+        header.delegate = self
+        header.setDelegate()
+        return header
     }
 
 }
@@ -113,3 +126,4 @@ extension ProfileViewController: UITextFieldDelegate {
         return true
     }
 }
+
