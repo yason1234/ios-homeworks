@@ -11,6 +11,8 @@ class ProfileViewController: UIViewController {
     
     private lazy var myTableView = UITableView(frame: .zero, style: .grouped)
     private lazy var model: [NewPost] = postArray
+    private lazy var image = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "wwdc"]
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,29 +37,60 @@ class ProfileViewController: UIViewController {
         myTableView.delegate = self
         myTableView.rowHeight = UITableView.automaticDimension
         myTableView.register(ProfileHeaderView.self, forHeaderFooterViewReuseIdentifier: "Header")
+        myTableView.register(PhotosTableViewCell.self, forCellReuseIdentifier: "collection")
+
     }
 }
 
 // MARK: tableView Data and Delegate
 extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
 
+    func numberOfSections(in tableView: UITableView) -> Int {
+        2
+    }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        model.count
+        switch section {
+        case 0: return 1
+        case 1: return model.count
+        default: break
+        }
+        return 0
+
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        let cell = tableView.dequeueReusableCell(withIdentifier: "customCell", for: indexPath) as! PostTableViewCell
-        cell.configureViews(authorNew: model[indexPath.row].author, avatar: model[indexPath.row].image, description: model[indexPath.row].description, likes: model[indexPath.row].likes, views: model[indexPath.row].views)
-        return cell
+        if indexPath.section == 1 {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "customCell", for: indexPath) as? PostTableViewCell else {return UITableViewCell()}
+            cell.configureViews(authorNew: model[indexPath.row].author, avatar: model[indexPath.row].image, description: model[indexPath.row].description, likes: model[indexPath.row].likes, views: model[indexPath.row].views)
+            return cell
+        } else if indexPath.section == 0 {
+           guard let cell = tableView.dequeueReusableCell(withIdentifier: "collection", for: indexPath) as?  PhotosTableViewCell else {return UITableViewCell()}
+            cell.arrayOfImage = image
+            return cell
+        }
+        return UITableViewCell()
+
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 
-        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "Header") as! ProfileHeaderView
-        header.delegate = self
-        header.setDelegate()
-        return header
+        if section == 0 {
+            let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "Header") as! ProfileHeaderView
+            header.delegate = self
+            header.setDelegate()
+            return header
+        }
+        return nil
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 0 {
+            let newVC = PhotosViewController()
+            newVC.photoArray = image
+            navigationController?.pushViewController(newVC, animated: true)
+        }
     }
 }
 
@@ -83,37 +116,3 @@ extension ProfileViewController: UITextFieldDelegate {
         return true
     }
 }
-
-
-
-
-
-
-//    private lazy var profileHeaderView = ProfileHeaderView()
-//
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//
-//        setupViews()
-//        setConstraints()
-//    }
-//
-//    private func setupViews() {
-//
-//        view.backgroundColor = .lightGray
-//        view.addSubview(profileHeaderView)
-//        profileHeaderView.translatesAutoresizingMaskIntoConstraints = false
-//        profileHeaderView.layer.borderWidth = 3
-//        profileHeaderView.layer.borderColor = UIColor.systemBlue.cgColor
-//    }
-//}
-//
-//extension ProfileViewController {
-//
-//    private func setConstraints() {
-//
-//        NSLayoutConstraint.activate([
-//            profileHeaderView.widthAnchor.constraint(equalTo: view.widthAnchor),
-//            profileHeaderView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)])
-//    }
-//}

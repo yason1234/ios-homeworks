@@ -85,7 +85,7 @@ class PostTableViewCell: UITableViewCell {
             avatarImageView.topAnchor.constraint(equalTo: author.bottomAnchor, constant: 8),
             avatarImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             avatarImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-            avatarImageView.widthAnchor.constraint(equalTo: self.widthAnchor),
+
             avatarImageView.heightAnchor.constraint(equalTo: avatarImageView.widthAnchor, multiplier: 1),
             
             descriptionLabel.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 8),
