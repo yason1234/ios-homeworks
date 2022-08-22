@@ -126,7 +126,7 @@ class AvatarView: UIView {
                     self.avatarImage.translatesAutoresizingMaskIntoConstraints = true
                     self.avatarImage.frame = self.startPoint
                     self.boolForCornerRaduis.toggle()
-                    self.alpha = 0.5
+                    self.alpha = 0
 
                     self.layoutIfNeeded()
                 }
