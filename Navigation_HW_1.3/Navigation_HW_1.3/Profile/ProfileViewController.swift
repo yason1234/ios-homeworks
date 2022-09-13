@@ -14,6 +14,7 @@ class ProfileViewController: UIViewController {
     private lazy var image = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "wwdc"]
     private lazy var avatarView = AvatarView()
 
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -44,6 +45,7 @@ class ProfileViewController: UIViewController {
         avatarView.backgroundColor = .white
         //avatarView.alpha = 0.5
         avatarView.isHidden = true
+
     }
 }
 
@@ -61,6 +63,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
         default: break
         }
         return 0
+
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -75,6 +78,7 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             return cell
         }
         return UITableViewCell()
+
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -97,7 +101,6 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             navigationController?.pushViewController(newVC, animated: true)
         }
     }
-
 }
 
 // MARK: constraints
@@ -137,3 +140,4 @@ extension ProfileViewController {
         avatarView.startAnimation()
     }
 }
+
