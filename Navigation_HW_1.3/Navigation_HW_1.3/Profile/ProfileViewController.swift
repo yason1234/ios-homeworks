@@ -12,6 +12,7 @@ class ProfileViewController: UIViewController {
     private lazy var myTableView = UITableView(frame: .zero, style: .grouped)
     private lazy var model: [NewPost] = postArray
     private lazy var image = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "wwdc"]
+    private lazy var avatarView = AvatarView()
 
 
     override func viewDidLoad() {
@@ -25,6 +26,7 @@ class ProfileViewController: UIViewController {
     private func setUpViews() {
 
         view.addSubview(myTableView)
+        view.addSubview(avatarView)
     }
 
     private func configure() {
@@ -38,6 +40,11 @@ class ProfileViewController: UIViewController {
         myTableView.rowHeight = UITableView.automaticDimension
         myTableView.register(ProfileHeaderView.self, forHeaderFooterViewReuseIdentifier: "Header")
         myTableView.register(PhotosTableViewCell.self, forCellReuseIdentifier: "collection")
+        
+        avatarView.translatesAutoresizingMaskIntoConstraints = false
+        avatarView.backgroundColor = .white
+        //avatarView.alpha = 0.5
+        avatarView.isHidden = true
 
     }
 }
@@ -80,6 +87,8 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
             let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: "Header") as! ProfileHeaderView
             header.delegate = self
             header.setDelegate()
+            header.addAnimation()
+            avatarView.setViews(data: header.giveData())
             return header
         }
         return nil
@@ -104,6 +113,11 @@ extension ProfileViewController {
             myTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             myTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             myTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            
+            avatarView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            avatarView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            avatarView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            avatarView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
         ])
     }
 }
@@ -116,3 +130,14 @@ extension ProfileViewController: UITextFieldDelegate {
         return true
     }
 }
+
+// MARK: animation
+extension ProfileViewController {
+    
+    @objc func setAnimation() {
+        
+        avatarView.isSmall.toggle()
+        avatarView.startAnimation()
+    }
+}
+

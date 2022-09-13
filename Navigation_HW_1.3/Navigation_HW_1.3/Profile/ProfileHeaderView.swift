@@ -104,17 +104,38 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     func setDelegate() {
         statusTextField.delegate = delegate
     }
+    
+    func giveData() -> (UIImage, NSLayoutConstraint, NSLayoutConstraint) {
+
+        return (avatarImageView.image!, avatarTopConstraint, avatarLeadingConstraint)
+    }
+    
+    var avatarTopConstraint: NSLayoutConstraint = NSLayoutConstraint()
+    var avatarLeadingConstraint: NSLayoutConstraint = NSLayoutConstraint()
+    var avatarWidthConstraint: NSLayoutConstraint = NSLayoutConstraint()
+    var avatarHeightConstraint: NSLayoutConstraint = NSLayoutConstraint()
+    
 }
 
 extension ProfileHeaderView {
 
      func setConstraints() {
+         
+         avatarTopConstraint = self.avatarImageView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 16)
+         avatarLeadingConstraint = self.avatarImageView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16)
+         avatarWidthConstraint = self.avatarImageView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.24)
+         avatarHeightConstraint =  self.avatarImageView.heightAnchor.constraint(equalTo: self.avatarImageView.widthAnchor)
 
         NSLayoutConstraint.activate([
-            self.avatarImageView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 16),
-            self.avatarImageView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            self.avatarImageView.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor, multiplier: 0.24),
-            self.avatarImageView.heightAnchor.constraint(equalTo: self.avatarImageView.widthAnchor),
+//            self.avatarImageView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 16),
+//            self.avatarImageView.leadingAnchor.constraint(equalTo: self.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+//            self.avatarImageView.widthAnchor.constraint(equalTo: self.safeAreaLayoutGuide.widthAnchor, multiplier: 0.24),
+//            self.avatarImageView.heightAnchor.constraint(equalTo: self.avatarImageView.widthAnchor),
+            
+            avatarTopConstraint,
+            avatarLeadingConstraint,
+            avatarWidthConstraint,
+            avatarHeightConstraint,
          
              self.fullNameLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 27),
              self.fullNameLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
@@ -158,5 +179,17 @@ extension ProfileHeaderView {
     @objc func statusTextChanged() {
         
         statusText = statusTextField.text
+    }
+}
+
+// MARK: animation
+extension ProfileHeaderView {
+    
+    func addAnimation() {
+        
+        let gesture = UITapGestureRecognizer(target: delegate, action: #selector(delegate?.setAnimation))
+        
+        avatarImageView.addGestureRecognizer(gesture)
+        avatarImageView.isUserInteractionEnabled = true
     }
 }
